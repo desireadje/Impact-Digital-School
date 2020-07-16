@@ -70,3 +70,5 @@ Route::get('/formulaire-workshop', [
 	'as' => 'add_workshop',
 	'uses' => 'Admin@add_workshop'
 ]);
+
+Route::any('/inscription', 'Site@inscription')->name('inscription');

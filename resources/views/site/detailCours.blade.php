@@ -2,34 +2,34 @@
 
 @section('content')
 
-  <!--==========================
-    Intro Section
-  ============================-->
-  <style>
-      .text{
+    <!--==========================
+        Intro Section
+    ============================-->
+    <style>
+        .text{
           color:#fff;
           font-weight:bold;
-      }
-      .titre h1{
-        font-weight:bolder!important;
-      }
-      p{
-        font-size:20px;   
-      }
-      h1{
-        font-weight: 900;
-        font-size:50px;
-      }
-  </style>
+        }
+        .titre h1{
+            font-weight:bolder!important;
+        }
+        p{
+            font-size:20px;
+        }
+        h1{
+            font-weight: 900;
+            font-size:50px;
+        }
+    </style>
 
 
    <section class="seconde" style=" background-image: linear-gradient(to bottom, #f7ca05 , #f7c800);">
     <div class="container">
       <div class="row">
         <div class="col-md-8 text">
-            <h1>Les journees du web</h1>
+            <h1>Les journées du web</h1>
             <p>
-              Pour cette editio "les journees du web " vous plonge dans l'univert de la programmation 
+              Pour cette editio "les journees du web " vous plonge dans l'univert de la programmation
               web venez decouvris le metier de developpeur web dans tous ces contout.
             </p>
             <ul class="btn-nav lg-mt">
@@ -43,7 +43,7 @@
     </div>
   </section><!-- #intro -->
 
-  <main id="main">  
+  <main id="main">
 
     <section id="services" class="section-bg">
       <div class="container">
@@ -83,7 +83,7 @@
            </div>
 
           <div class="col-md-6 col-lg-4 data-wow-duration="1.4s" disable>
-             
+
              <div class="boxer">
               <span></span>
               <h5 class="title-boxer">Workshop</h5>
@@ -133,10 +133,76 @@
     </section><!-- #services -->
 
 
-
-
     <!--==========================
       Call To Action Section
     ============================-->
+
+@endsection
+
+
+@section('set_page_js')
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // $("[href$='#myModal']").click(function() {
+            $("#sinscrire").click(function(e) {
+                $("#myModal").attr("data-keyboard", false);
+                $("#myModal").attr("data-backdrop", 'static');
+
+                e.preventDefault();
+                $("#sinscrire").attr("disabled", true);
+                var inscription = new Object();
+
+                inscription.nom = $("#nom").val();
+                inscription.prenom = $("#prenom").val();
+                inscription.telephone = $("#telephone").val();
+                inscription.age = $("#age").val();
+                inscription.email = $("#email").val();
+                inscription.niveau = $("#niveau").val();
+                inscription.profession = $("#profession").val();
+                inscription.attente = $("#attente").val();
+
+                console.log(JSON.stringify(inscription));
+
+                $.ajax({
+                    url: '/inscription',
+                    type:'POST',
+                    data: $('#inscription_form').serialize(),
+                    // data: {
+                    //     "inscription": JSON.stringify(inscription),
+                    //     "_token": $("#_token").val()
+                    //     },
+                    dataType: 'json',
+
+                    success: function(json){
+                        // var statut = json.statut;
+                        // console.log(statut);
+                        console.log(json.success);
+                        console.log(json.request);
+                        // console.log(json._token);
+
+                        // if(statut==1) {
+                        //     console.log(json.info);
+                        //     $('#inscription_content').html("");
+                        //     $('#inscription_content').html(json.content);
+                        // } else {
+                        //     console.log(json.info);
+                        //     $("#sinscrire").attr("disabled", false);
+                        //     $('#inscription_content').html("");
+                        //     $('#inscription_content').html(json.content);
+                        // }
+                    },
+                    error: function(request,status,error){
+                        alert(request.responseText);
+                        alert(status);
+                        alert(error);
+                    }
+                });
+
+
+            });
+        })
+
+    </script>
 
 @endsection
