@@ -144,53 +144,44 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            // $("[href$='#myModal']").click(function() {
             $("#sinscrire").click(function(e) {
                 $("#myModal").attr("data-keyboard", false);
                 $("#myModal").attr("data-backdrop", 'static');
 
                 e.preventDefault();
                 $("#sinscrire").attr("disabled", true);
-                var inscription = new Object();
-
-                inscription.nom = $("#nom").val();
-                inscription.prenom = $("#prenom").val();
-                inscription.telephone = $("#telephone").val();
-                inscription.age = $("#age").val();
-                inscription.email = $("#email").val();
-                inscription.niveau = $("#niveau").val();
-                inscription.profession = $("#profession").val();
-                inscription.attente = $("#attente").val();
-
-                console.log(JSON.stringify(inscription));
+                $('#notification').html("");
 
                 $.ajax({
                     url: '/inscription',
-                    type:'POST',
-                    data: $('#inscription_form').serialize(),
-                    // data: {
-                    //     "inscription": JSON.stringify(inscription),
-                    //     "_token": $("#_token").val()
-                    //     },
-                    dataType: 'json',
+                    type:'POST', dataType: 'json',
+                    data: {
+                        "_token": $("#_token").val(),
+
+                        "nom": $("#nom").val(),
+                        "prenom": $("#prenom").val(),
+                        "telephone": $("#telephone").val(),
+                        "age": $("#age").val(),
+                        "email": $("#email").val(),
+                        "niveau": $("#niveau").val(),
+                        "profession": $("#profession").val(),
+                        "attente": $("#attente").val(),                        
+                    },
 
                     success: function(json){
-                        // var statut = json.statut;
-                        // console.log(statut);
-                        console.log(json.success);
-                        console.log(json.request);
-                        // console.log(json._token);
+                        console.log(statut);
+                        var statut = json.statut;
 
-                        // if(statut==1) {
-                        //     console.log(json.info);
-                        //     $('#inscription_content').html("");
-                        //     $('#inscription_content').html(json.content);
-                        // } else {
-                        //     console.log(json.info);
-                        //     $("#sinscrire").attr("disabled", false);
-                        //     $('#inscription_content').html("");
-                        //     $('#inscription_content').html(json.content);
-                        // }
+                        if(statut==1) {
+                            console.log(json.info);
+                            $('#inscription_content').html("");
+                            $('#inscription_content').html(json.content);
+                        } else {
+                            console.log(json.info);
+                            $("#sinscrire").attr("disabled", false);
+                            $('#notification').html("");
+                            $('#notification').html(json.content);
+                        }
                     },
                     error: function(request,status,error){
                         alert(request.responseText);

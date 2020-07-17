@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\input;
 use App\Master;
 use App\Workshop;
 
 use App\InscriptionModel;
+
+use Validator;
+use reponse;
 
 class Site extends Controller
 {
@@ -54,65 +58,79 @@ class Site extends Controller
 
     public function inscription(Request $request)
     {
-        // if ($request->isMethod('post')){
+        if ($request->isMethod('post')){
 
-            $modal_panel = "";
-            $dataJson = array();
-
-            // $params = (object) $request->except('inscription');
-
-            // $inscription = $request->all("inscription");
-            // $_token = $request->all("_token");
-            // inscription: "{\"nom\":\"Adje\",\"prenom\":\"desire\",\"telephone\":\"77867451\",\"age\":\"21\",\"email\":\"dadjdev10@hotmail.com\",\"niveau\":\"Ingenieur\",\"profession\":\"Dev\",\"attente\":\"Dev\"}"
-
-
-            $dataJson = array(
-                'success' => 'Got Simple Ajax Request.',
-                'request' => $request->nom,
-                // '_token' => $_token,
+            $rules = array(
+                'nom' => 'required',
+                'prenom' => 'required',
+                'telephone' => 'required',
+                'email' => 'required',
+                'niveau' => 'required',
+                'profession' => 'required',
             );
 
+            $validator = Validator::make(input::all(), $rules);
 
+            if ($validator->fails()) {
+                return response()::json(array('errors' => $validator->getMessageBag()->toarray()));
+            } else {
+                $modal_panel = "";
+                $dataJson = array();
 
-            /*$json_decode = json_decode($params);
+                $where = InscriptionModel::where('email', '=', $request->email)->first();
 
-            $inscriptionManager = new InscriptionModel();
+                if(is_null($where)){
 
-            $inscriptionManager->nom = $json_decode->nom;
-            $inscriptionManager->prenom = $json_decode->prenom;
-            $inscriptionManager->telephone = $json_decode->telephone;
-            $inscriptionManager->age = $json_decode->age;
-            $inscriptionManager->email = $json_decode->email;
-            $inscriptionManager->niveau = $json_decode->niveau;
-            $inscriptionManager->profession = $json_decode->profession;
-            $inscriptionManager->attente = $json_decode->attente;
-            $inscriptionManager->etat = 1;
+                    $inscriptionManager = new InscriptionModel();
 
-            $save = $inscriptionManager->save();
+                    $inscriptionManager->nom = $request->nom;
+                    $inscriptionManager->prenom = $request->prenom;
+                    $inscriptionManager->telephone = $request->telephone;
+                    $inscriptionManager->age = $request->age;
+                    $inscriptionManager->email = $request->email;
+                    $inscriptionManager->niveau = $request->niveau;
+                    $inscriptionManager->profession = $request->profession;
+                    $inscriptionManager->attente = $request->attente;
+                    $inscriptionManager->etat = 1;
 
-            if ($save) {
+                    $save = $inscriptionManager->save();
 
-                $modal_panel .= '<div class="modal-header d-flex justify-content-center">';
-                    $modal_panel .= '<h1 class="heading">Bienvenus dans la famille</h1>';
-                $modal_panel .= '</div>';
-                $modal_panel .= '<div class="modal-body">';
-                    $modal_panel .= '<i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>';
-                    $modal_panel .= '<h5>Toute l\'equipe vous remercie pour votre inscription</h5>';
-                $modal_panel .= '</div>';
+                    if ($save) {
+                        
+                        $modal_panel .= '<div class="text-center">';
+                            $modal_panel .= '<div class="modal-header d-flex justify-content-center">';
+                                $modal_panel .= '<h1 class="heading">Bienvenu dans la famille</h1>';
+                            $modal_panel .= '</div>';
+                            $modal_panel .= '<div class="modal-body">';
+                                $modal_panel .= '<i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>';
+                                $modal_panel .= '<h5>Toute l\'equipe vous remercie pour votre inscription</h5>';
+                            $modal_panel .= '</div>';
+                        $modal_panel .= '</div>';
+        
+                        $dataJson = array(
+                            'statut' => 1,
+                            'info' =>'Bienvenu dans la famille !',
+                            'content' => $modal_panel,
+                        );
+                    }
+                } else {
 
-                $dataJson = array(
-                    'statut' => 1,
-                    'info' =>'Bienvenus dans la famille !',
-                    'content' => $modal_panel,
-                );
+                    $modal_panel .= '<p class="alert alert-warning animated fadeIn well-sm text-justify">
+                                        <span class="text-bold mr-sm">Attention !</span> Vous etes déjà de la famille !
+                                    </p>';
+
+                    $dataJson = array(
+                        'statut' => 0,
+                        'info' =>'Vous etes déjà de la famille !',
+                        'content' => $modal_panel,
+                    );
+                }
+
+                return response()->json($dataJson);
             }
 
-
-            */
-
-            return response()->json($dataJson);
-        // } else {
-        //     return redirect()->route('detailCours');
-        // }
+        } else {
+            return redirect()->route('detailCours');
+        }
     }
 }

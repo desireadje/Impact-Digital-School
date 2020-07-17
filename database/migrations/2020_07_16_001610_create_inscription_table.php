@@ -22,7 +22,7 @@ class CreateInscriptionTable extends Migration
             $table->string('email');
             $table->string('niveau');
             $table->string('profession');
-            $table->string('attente');
+            $table->text('attente');
             $table->integer('etat');
             $table->timestamps();
         });

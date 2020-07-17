@@ -81,42 +81,41 @@
                         <h1 class="title-eve">Inscription<span> a la journée</span> de formation</h1>
                     </div>
                     <div class="modal-body">
-                        {{-- <div class="text-center">
-                            <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
-                        <h5>Toute l'equipe vous remercie pour votre inscription</h5>
-                        </div> --}}
                         <form class="row" id="inscription_form">
+
+                            <div id="notification"></div>
+
                             <div class="form-group col-md-6">
-                                <input class="form-control form-control-lg" id="nom" type="text" placeholder="Votre nom">
+                                <input class="form-control form-control-lg" id="nom" name="nom" type="text" placeholder="Votre nom">
                                 <small id="" class="form-text text-muted">Indiquez votre nom dans ce champs.</small>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control form-control-lg" id="prenom" type="text" placeholder="Votre prenom">
+                                <input class="form-control form-control-lg" id="prenom" name="prenom" type="text" placeholder="Votre prenom">
                                 <small id="" class="form-text text-muted">Indiquez votre prenom dans ce champs.</small>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control form-control-lg" id="telephone" type="text" placeholder="Telephone">
+                                <input class="form-control form-control-lg" id="telephone" name="telephone" type="text" placeholder="Telephone">
                                 <small id="" class="form-text text-muted">Indiquez votre numero de telephone dans ce champs.</small>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control form-control-lg" id="age" type="text" placeholder="Age">
+                                <input class="form-control form-control-lg" id="age" name="age" type="text" placeholder="Age">
                                 <small id="" class="form-text text-muted">Indiquez votre numero dans ce champs.</small>
                             </div>
                             <div class="form-group col-md-12">
-                                <input class="form-control form-control-lg" id="email" type="text" placeholder="Adresse email">
+                                <input class="form-control form-control-lg" id="email" name="email" type="text" placeholder="Adresse email">
                                 <small id="" class="form-text text-muted">Indiquez votre adresse email dans ce champs.</small>
                             </div>
                             <div class="form-group col-md-12">
-                                <input class="form-control form-control-lg" id="niveau" type="text" placeholder="Niveau d'etude">
+                                <input class="form-control form-control-lg" id="niveau" name="niveau" type="text" placeholder="Niveau d'etude">
                                 <small id="" class="form-text text-muted">Champs obligatoire</small>
                             </div>
                             <div class="form-group col-md-12">
-                                <input class="form-control form-control-lg" id="profession" type="text" placeholder="Profession actuelle">
+                                <input class="form-control form-control-lg" id="profession" name="profession" type="text" placeholder="Profession actuelle">
                                 <small id="" class="form-text text-muted">Champs obligatoire</small>
                             </div>
 
                             <div class="form-group col-md-12">
-                                <textarea class="form-control form-control-lg" id="attente" placeholder="Quelle sont vos attente pour cette formation"></textarea>
+                                <textarea class="form-control form-control-lg" id="attente" name="attente" placeholder="Quelle sont vos attente pour cette formation"></textarea>
                                 <small id="" class="form-text text-muted">200 carateres </small>
                             </div>
 
@@ -124,7 +123,7 @@
 
                             <div class="form-group col-md-12">
                                 <button id="sinscrire" type="submit" class="btn-lg-2">Enregistrer</button>
-                                <a href="#confModal" class="btn-lg-3" data-toggle="modal">ok</a>
+                                {{-- <a href="#confModal" class="btn-lg-3" data-toggle="modal">ok</a> --}}
                             </div>
                         </form>
                     </div>
@@ -133,7 +132,7 @@
         </div>
 
         <!-- large modal -->
-        <div class="modal fade" id="confModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        {{-- <div class="modal fade" id="confModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-confirm">
                 <!--Content-->
                 <div class="modal-content text-center">
@@ -149,7 +148,7 @@
                 </div>
                 <!--/.Content-->
             </div>
-        </div>
+        </div> --}}
 
         <!--==========================
             Features Section

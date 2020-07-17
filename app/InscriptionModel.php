@@ -12,11 +12,9 @@ class InscriptionModel extends Model
         'nom',
         'prenom',
         'telephone',
-        'age',
         'email',
         'niveau',
         'profession',
-        'attente',
     ]; /** enumeration des champs qui sont autorisé a etre rempli pendant l'inscription */
 
 }
